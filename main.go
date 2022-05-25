@@ -4,6 +4,7 @@ import (
     "net/http"
 
     "github.com/gin-gonic/gin"
+    "github.com/gin-contrib/cors"
 )
 
 type photo struct {
@@ -21,6 +22,12 @@ var photos = []photo{
 
 func main() {
     router := gin.Default()
+
+    config := cors.DefaultConfig()
+    // config.AllowOrigins = []string{"http://sample.com"}
+    config.AllowOrigins = []string{"*"}
+    router.Use(cors.New(config))
+
     router.GET("/photos", getPhotos)
     router.GET("/", getPhotos)
 
