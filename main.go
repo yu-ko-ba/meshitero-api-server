@@ -1,9 +1,10 @@
 package main
 
 import (
-    "net/http"
+	"fmt"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 type photo struct {
@@ -24,9 +25,21 @@ func main() {
     router.GET("/photos", getPhotos)
     router.GET("/", getPhotos)
 
+    router.POST("post", postFunc)
+
     router.Run("localhost:8080")
 }
 
 func getPhotos(c *gin.Context) {
     c.IndentedJSON(http.StatusOK, photos)
+}
+
+type InputCompany struct {
+    Name string
+}
+
+func postFunc(c *gin.Context) {
+    var hoge InputCompany
+    c.BindJSON(&hoge)
+    fmt.Println(hoge.Name)
 }
