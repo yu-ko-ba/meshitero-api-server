@@ -49,4 +49,8 @@ func postFunc(c *gin.Context) {
     var hoge InputCompany
     c.BindJSON(&hoge)
     fmt.Println(hoge.Name)
+
+    c.JSON(200, gin.H{
+        "message": hoge.Name + "さん、こんにちは",
+    })
 }
